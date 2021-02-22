@@ -1,0 +1,195 @@
+[
+    {
+        "Title": "Chęć uczestnictwa w kradzieży konia",
+        "Title_Generic": "",
+        "Description": "Bohater przychodzi w ciemną uliczkę w godzinach wieczornych i wyraża chęć uczestnictwa w kradzieży",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Id": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Id": "Main_hero",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        },
+                        {
+                            "Id": "Merchant_shady",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": "Outside_barn"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Preconditions" : [
+            { 
+                "cond" : ""
+            }
+        ],
+        "Instructions": [
+            {
+                "op": "move",
+                "node": "Characters/Main_hero",
+                "to": "Outside_barn"
+            }
+        ]
+    },
+    {
+        "Title": "Skradanie się do stodoły",
+        "Title_Generic": "",
+        "Description": "Bohater skrada się do stodoły, musi odwrócić uwagę zbójów",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Id": "Outside_barn",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Id": "Bandit",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Id": "Knife",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Id": "Barrel",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Id": "Wine",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                },
+                                {
+                                    "Id": "Plug",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        }
+                    ],
+                    "Connections": [
+                        {
+                            "Destination": "Inside_barn"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Preconditions" : [
+            { 
+                "cond" : ""
+            }
+        ],
+        "Instructions": [
+            {
+                "op": "",
+                "node": "",
+                "to": ""
+            }
+        ]
+    },
+    {
+        "Title": "Odszukanie szkatułki ze złotem i kradzież konia",
+        "Title_Generic": "",
+        "Description": "Bohater szuka szkatułki w stodole oraz kradnie konia",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Id": "Inside_Barn",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Id": "Main_hero",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Id": "Picklock", // wytrych
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        },
+                        {
+                            "Id": "Horse",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Id": "Chest",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Id": "Carrot",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        },
+                        {
+                            "Id": "Casket",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Id": "Gold",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        }
+                    ],
+                    "Connections": [
+                        {
+                            "Destination": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Preconditions" : [
+            { 
+                "cond" : "Main_hero.Picklock = 1"
+            }
+        ],
+        "Instructions": [
+            {
+                "op": "",
+                "node": "",
+                "to": ""
+            }
+        ]
+    }
+]
