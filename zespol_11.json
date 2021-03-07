@@ -11,15 +11,26 @@
                     "Characters": [
                         {
                             "Id": "Main_hero",
-                            "Attributes": {},
+                            "Attributes": {
+                                "snakeAbility": 1
+                            },
                             "Characters": [],
                             "Items": []
                         },
                         {
-                            "Id": "Merchant_shady",
+                            "Id": "Shady_merchant",
                             "Attributes": {},
                             "Characters": [],
-                            "Items": []
+                            "Items": [
+                                {                
+                                    "Id": "Theft_agreement",
+                                    "Attributes": {
+                                        "isSigned": false
+                                    },
+                                    "Characters": [],
+                                    "Items": []   
+                                }
+                            ]
                         }
                     ],
                     "Items": [],
@@ -34,10 +45,15 @@
         "R_Side": {},
         "Preconditions" : [
             { 
-                "cond" : ""
+                "cond" : "Main_hero.snakeAbility > 0"
             }
         ],
         "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Shady_merchant/Theft_agreement.isSigned",
+                "to": true
+            },
             {
                 "op": "move",
                 "node": "Characters/Main_hero",
@@ -83,7 +99,9 @@
                                 },
                                 {
                                     "Id": "Plug",
-                                    "Attributes": {},
+                                    "Attributes": {
+                                        "isPlugged": true
+                                    },
                                     "Characters": [],
                                     "Items": []
                                 }
@@ -106,9 +124,14 @@
         ],
         "Instructions": [
             {
-                "op": "",
-                "node": "",
-                "to": ""
+                "op": "set",
+                "attribute": "Barell/Plug.isPlugged",
+                "to": false
+            },
+            {
+                "op": "move",
+                "node": "Characters/Main_hero",
+                "to": "Inside_barn"
             }
         ]
     },
@@ -124,11 +147,15 @@
                     "Characters": [
                         {
                             "Id": "Main_hero",
-                            "Attributes": {},
+                            "Attributes": 
+                            {
+                                "hasPicklock": true
+                            }
+                            ,
                             "Characters": [],
                             "Items": [
                                 {
-                                    "Id": "Picklock", // wytrych
+                                    "Id": "Picklock", 
                                     "Attributes": {},
                                     "Characters": [],
                                     "Items": []
@@ -137,7 +164,10 @@
                         },
                         {
                             "Id": "Horse",
-                            "Attributes": {},
+                            "Attributes": {
+                                "isStolen": false,
+                                "isFed": false
+                            },
                             "Characters": [],
                             "Items": []
                         }
@@ -145,12 +175,16 @@
                     "Items": [
                         {
                             "Id": "Chest",
-                            "Attributes": {},
+                            "Attributes": {
+                                "isOpen": false
+                            },
                             "Characters": [],
                             "Items": [
                                 {
                                     "Id": "Carrot",
-                                    "Attributes": {},
+                                    "Attributes": {
+                                        "isTaken": false
+                                    },
                                     "Characters": [],
                                     "Items": []
                                 }
@@ -158,7 +192,9 @@
                         },
                         {
                             "Id": "Casket",
-                            "Attributes": {},
+                            "Attributes": {
+                                "isTaken": false
+                            },
                             "Characters": [],
                             "Items": [
                                 {
@@ -172,6 +208,111 @@
                     ],
                     "Connections": [
                         {
+                            "Destination": "Market"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Preconditions" : [
+            { 
+                "cond" : "Main_hero.hasPicklock = true"
+            }
+        ],
+        "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Chest.isOpen",
+                "to": "true"
+            },
+            {
+                "op": "set",
+                "attribute": "Carot.isTaken",
+                "to": "true"
+            },
+            {
+                "op": "set",
+                "attribute": "Casket.isTaken",
+                "to": "true"
+            },
+            {
+                "op": "set",
+                "attribute": "Horse.isFed",
+                "to": "true"
+            },
+            {
+                "op": "set",
+                "attribute": "Horse.isStolen",
+                "to": "true"
+            },
+            {
+                "op": "set",
+                "attribute": "Main_hero.sneakAbility",
+                "to": 2
+            },
+            {
+                "op": "move",
+                "node": "Characters/Main_hero",
+                "to": "Market"
+            }
+        ]
+    },
+    {
+        "Title": "Powrót do kupca",
+        "Title_Generic": "",
+        "Description": "Bohater wraca do kupca z szkatułką i skradzionym koniem",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Id": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Id": "Main_hero",
+                            "Attributes": {
+                                "snakeAbility": 2,
+                                "horseRiding": 1 
+                            },
+                            "Characters": [
+                                {
+                                    "Id": "Horse",
+                                    "Attributes": {
+                                        "isStolen": true,
+                                        "isFed": true
+                                    },
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ],
+                            "Items": [
+                                {
+                                    "Id": "Casket",
+                                    "Attributes": {
+                                        "isTaken": true
+                                    },
+                                    "Characters": [],
+                                    "Items": [
+                                        {
+                                            "Id": "Gold",
+                                            "Attributes": {},
+                                            "Characters": [],
+                                            "Items": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Id": "Shady_merchant",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
                             "Destination": ""
                         }
                     ]
@@ -181,14 +322,14 @@
         "R_Side": {},
         "Preconditions" : [
             { 
-                "cond" : "Main_hero.Picklock = 1"
+                "cond" : "Main_hero/Items/Casket.isTaken"
             }
         ],
         "Instructions": [
             {
-                "op": "",
-                "node": "",
-                "to": ""
+                "op": "set",
+                "attribute": "Main_hero.horseRiding",
+                "to": 2
             }
         ]
     }
