@@ -1,5 +1,45 @@
 [
-    // Produkcja: nabycie wiedzy fabularnej, tzn. my i bandyci w jednej lokacji daje uzyskanie wiedzy, że jak odkorkujemy wino to bandci sie nim zajmą.
+    {
+        "Title": "Hero wonders wonders how to enter the barn unnoticed / Bohater zastanawia się jak wejść niepostrzeżenie do stodoły",
+        "Title_Generic": "Pozyskanie wiedzy fabularnej",
+        "Description": "Bohater stojąc na targowisku/dordze zastanawia się jak zakraść się niepostrzeżenie do stodoły - omijając zbójców",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": "Barn"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "create",
+                "in": "Main_hero/Narration",
+                "node": {
+                    "Name": "RemovePlugFromBarrel",
+                    "Attributes": {
+                        "IsActive": true,
+                        "Knowledge": "Bohater dowiaduje się, że jak odkorkuje wino, to odwróci tym ich uwagę od wejścia do stodoły"
+                    }
+                }
+            }
+        ]
+    },
     {
         "Title": "Skradanie się do stodoły",
         "Title_Generic": "",
