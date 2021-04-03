@@ -1,0 +1,51 @@
+[
+    //dodac produkcję generyczną wyciagnięcia obiektu z obiektu i wrzucenie jej do pliku quest11-generic.json
+    // dodać produkcję otwierania skrzyni wytrychem jako produkcja generyczna
+
+    // przykładowa produkcja generyczna
+    {
+        "Title": "Throw an item at the hero / Rzut przedmiotem w bohatera",
+        "Title_Generic": "Upuszczenie przedmiotu",
+        "Description": "BohaterA rzuca kamieniem w BohateraB",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Anywhere",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "BohaterA",
+                            "Attributes": {},
+                            "Items": [
+                                {
+                                    "Name": "Stone"
+                                }
+                            ],
+                            "Comment": "BohaterB jest rozproszony i nie wie co się dzieje, nie może zaatakować BohateraA"
+                        },
+                        {
+                            "Name": "BohaterB",
+                            "Attributes": {},
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": []
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "move",
+                "node": "Stone",
+                "to": "Anywhere/Items"
+            },
+            {
+                "op": "set",
+                "attribute": "BohaterB.isDistracted",
+                "value": "true"
+            }
+        ]
+    }
+]

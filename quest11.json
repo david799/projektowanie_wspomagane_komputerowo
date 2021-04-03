@@ -1,0 +1,226 @@
+[
+    // Produkcja: nabycie wiedzy fabularnej, tzn. my i bandyci w jednej lokacji daje uzyskanie wiedzy, że jak odkorkujemy wino to bandci sie nim zajmą.
+    {
+        "Title": "Skradanie się do stodoły",
+        "Title_Generic": "",
+        "Description": "Bohater skrada się do stodoły, musi odwrócić uwagę zbójów",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Bandit",
+                            "Attributes": {},
+                            "Characters": []
+                        },
+                        {
+                            "Name": "Main_hero",
+                            "Attributes": {
+                                "SneakAbility": 1
+                            },
+                            "Narration": [
+                                {
+                                    "Name": "MerchantShadyCascetStealingQuest"
+                                }
+                            ]
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Name": "Barrel",
+                            "Attributes": {
+                                "isPlugged": true
+                            },
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Name": "Wine",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        }
+                    ],
+                    "Connections": [
+                        {
+                            "Destination": "Barn"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Barell.isPlugged",
+                "value": false
+            },
+            {
+                "op": "move",
+                "node": "Characters/Main_hero",
+                "to": "Barn"
+            }
+        ]
+    },
+    {
+        "Title": "Odszukanie szkatułki ze złotem i kradzież konia",
+        "Title_Generic": "",
+        "Description": "Bohater szuka szkatułki w stodole oraz kradnie konia",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Barn",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Name": "Picklock",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Horse",
+                            "Attributes": {
+                                "isStolen": false,
+                                "isFed": false
+                            },
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Name": "Chest",
+                            "Attributes": {
+                                "isOpen": false
+                            },
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Name": "Carrot",
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Casket",
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Name": "Gold",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        }
+                    ],
+                    "Connections": [
+                        {
+                            "Destination": "Market"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Chest.isOpen",
+                "value": "true"
+            },
+            // zmiana własności przedmiotów załatwiamy przez move
+            //osobna produkcja karmienie konia, której efektem jest oswojenie konia
+            // kolejna produkcja: jeżeli koń jest oswojony, to zagnieżdzamy go w głównym nbohaterze.
+            {
+                "op": "move",
+                "node": "Characters/Main_hero",
+                "to": "Market"
+            }
+        ]
+    },
+    {
+        "Title": "Powrót do kupca",
+        //dwa warianty, jeden z oddaniem szkatułki a drugi z wystawieniem listu gończego
+        "Title_Generic": "",
+        "Description": "Bohater wraca do kupca z szkatułką i skradzionym koniem",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Attributes": {
+                                "snakeAbility": 2,
+                                "horseRiding": 1
+                                // musimy ją stworzyć, nie sprawdzac
+                            },
+                            "Characters": [
+                                {
+                                    "Name": "Horse",
+                                    "Attributes": {
+                                        "isStolen": true,
+                                        "isFed": true
+                                    },
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ],
+                            "Items": [
+                                {
+                                    "Name": "Casket",
+                                    "Attributes": {
+                                        "isTaken": true
+                                    },
+                                    "Characters": [],
+                                    "Items": [
+                                        {
+                                            "Name": "Gold",
+                                            "Attributes": {},
+                                            "Characters": [],
+                                            "Items": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Merchant_shady",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Main_hero.horseRiding",
+                "value": 2
+            }
+        ]
+    }
+]
