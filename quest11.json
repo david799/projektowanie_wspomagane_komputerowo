@@ -40,8 +40,9 @@
             }
         ]
     },
+
     {
-        "Title": "Skradanie się do stodoły",
+        "Title": "Sneaking up to the barn / Skradanie się do stodoły",
         "Title_Generic": "",
         "Description": "Bohater skrada się do stodoły, musi odwrócić uwagę zbójów",
         "L_Side": {
@@ -106,8 +107,9 @@
             }
         ]
     },
+
     {
-        "Title": "Odszukanie szkatułki ze złotem i kradzież konia",
+        "Title": "Finding the casket with gold and stealing a horse / Odszukanie szkatułki ze złotem i kradzież konia",
         "Title_Generic": "",
         "Description": "Bohater szuka szkatułki w stodole oraz kradnie konia",
         "L_Side": {
@@ -181,21 +183,124 @@
                 "attribute": "Chest.isOpen",
                 "value": "true"
             },
-            // zmiana własności przedmiotów załatwiamy przez move
-            //osobna produkcja karmienie konia, której efektem jest oswojenie konia
-            // kolejna produkcja: jeżeli koń jest oswojony, to zagnieżdzamy go w głównym nbohaterze.
             {
                 "op": "move",
                 "node": "Characters/Main_hero",
                 "to": "Market"
             }
+            // zmiana własności przedmiotów załatwiamy przez move
+            // TODO: zabranie marchewki
         ]
     },
+
+    // TODO: produkcja karmienie konia, której efektem jest oswojenie konia
     {
-        "Title": "Powrót do kupca",
-        //dwa warianty, jeden z oddaniem szkatułki a drugi z wystawieniem listu gończego
+        "Title": "Feeding the horse a carrot / Karmienie konia marchewką",
         "Title_Generic": "",
-        "Description": "Bohater wraca do kupca z szkatułką i skradzionym koniem",
+        "Description": "Bohater karmi konia marchewką, co pozwala go oswoić",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Barn",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Characters": [],
+                            "Items": [
+                                {
+                                    "Name": "Carrot",
+                                    "Attributes": {},
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ]
+                        },
+                        {
+                            "Name": "Horse",
+                            "Attributes": {
+                                "isFed": false
+                            },
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": "Market"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            // TODO: instrukcja karmienia konia - raczej do poprawy
+            {
+                "op": "fed",
+                "node": "Characters/Horse",
+                "from": "Characters/Main_hero/Items.Carrot"
+            }
+        ]
+    },
+
+    {
+        "Title": "Nesting a horse in the main hero / Zagnieżdżenie konia w głównym bohaterze",
+        "Title_Generic": "",
+        "Description": "Zagnieżdzenie oswojonego konia w głównym bohaterze",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Barn",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Characters": [
+                                {
+                                    "Name": "Horse",
+                                    "Attributes": {
+                                        "isFed": true
+                                    },
+                                    "Characters": [],
+                                    "Items": []
+                                }
+                            ],
+                            "Items": []
+                        },
+                        {
+                            "Name": "Horse",
+                            "Attributes": {
+                                "isFed": true
+                            },
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": "Market"
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "move",
+                "node": "Barn/Characters/Horse",
+                "to": "Barn/Characters/Main_hero/Characters"
+            }
+        ]
+    },
+
+    {
+        "Title": "Return to the merchant with the casket / Powrót do kupca ze szkatułką",
+        "Title_Generic": "",
+        "Description": "Bohater wraca do kupca po kradzieży ze szkatułką",
         "L_Side": {
             "Locations": [
                 {
@@ -204,28 +309,12 @@
                     "Characters": [
                         {
                             "Name": "Main_hero",
-                            "Attributes": {
-                                "snakeAbility": 2,
-                                "horseRiding": 1
-                                // musimy ją stworzyć, nie sprawdzac
-                            },
-                            "Characters": [
-                                {
-                                    "Name": "Horse",
-                                    "Attributes": {
-                                        "isStolen": true,
-                                        "isFed": true
-                                    },
-                                    "Characters": [],
-                                    "Items": []
-                                }
-                            ],
+                            "Attributes": {},
+                            "Characters": [],
                             "Items": [
                                 {
                                     "Name": "Casket",
-                                    "Attributes": {
-                                        "isTaken": true
-                                    },
+                                    "Attributes": {},
                                     "Characters": [],
                                     "Items": [
                                         {
@@ -257,9 +346,51 @@
         "R_Side": {},
         "Instructions": [
             {
+                "op": "move",
+                "node": "Characters/Main_hero/Items/Casket",
+                "to": "Characters/Merchant_shady/Items/Casket"
+            }
+        ]
+    },
+
+    {
+        "Title": "Return to the merchant without the casket / Powrót do kupca bez szkatułki",
+        "Title_Generic": "",
+        "Description": "Bohater wraca do kupca bez szkatułki, zostaje wystawiony na niego list gończy",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Main_hero",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        },
+                        {
+                            "Name": "Merchant_shady",
+                            "Attributes": {},
+                            "Characters": [],
+                            "Items": []
+                        }
+                    ],
+                    "Items": [],
+                    "Connections": [
+                        {
+                            "Destination": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
                 "op": "set",
-                "attribute": "Main_hero.horseRiding",
-                "value": 2
+                "attribute": "Character.Wanted",
+                "value": "true"
             }
         ]
     }
