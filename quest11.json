@@ -34,13 +34,12 @@
                     "Name": "RemovePlugFromBarrel",
                     "Attributes": {
                         "IsActive": true,
-                        "Knowledge": "Bohater dowiaduje się, że jak odkorkuje wino, to odwróci tym ich uwagę od wejścia do stodoły"
+                        "Knowledge": "Bohater wpada na pomysł, że jak odkorkuje wino, to odwróci tym ich uwagę od wejścia do stodoły"
                     }
                 }
             }
         ]
     },
-
     {
         "Title": "Sneaking up to the barn / Skradanie się do stodoły",
         "Title_Generic": "",
@@ -107,7 +106,45 @@
             }
         ]
     },
-
+    {
+        "Title": "Hero noticed by bandits / Bohater zostaje zauważony przez zbójców",
+        "Title_Generic": "",
+        "Description": "Bohater zostaje zauważony przez zbójców i pobity na śmierć",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Market",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Bandit",
+                            "Attributes": {},
+                            "Characters": []
+                        },
+                        {
+                            "Name": "Main_hero",
+                            "Attributes": {
+                                "SneakAbility": 1
+                            },
+                            "Narration": [
+                                {
+                                    "Name": "MerchantShadyCascetStealingQuest"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
+            {
+                "op": "set",
+                "attribute": "Character/Main_hero.isDead",
+                "value": true
+            }
+        ]
+    },
     {
         "Title": "Finding the casket with gold and stealing a horse / Odszukanie szkatułki ze złotem i kradzież konia",
         "Title_Generic": "",
@@ -188,15 +225,13 @@
                 "node": "Characters/Main_hero",
                 "to": "Market"
             }
-            // zmiana własności przedmiotów załatwiamy przez move
-            // TODO: zabranie marchewki
-            // TODO: zabranie szkatułki
+            // TODO: zabranie marchewki     ---      zrobiliśmy produkcje generyczna do wyciagania przedmiotu z przedmiotu
+            // TODO: zabranie szkatułki     ---      zrobiliśmy produkcje generyczna do wyciagania przedmiotu z przedmiotu
         ]
     },
 
-    // TODO: produkcja karmienie konia, której efektem jest oswojenie konia
     {
-        "Title": "Feeding the horse a carrot / Karmienie konia marchewką",
+        "Title": "Feeding the horse with a carrot / Karmienie konia marchewką",
         "Title_Generic": "",
         "Description": "Bohater karmi konia marchewką, co pozwala go oswoić",
         "L_Side": {
@@ -237,11 +272,10 @@
         },
         "R_Side": {},
         "Instructions": [
-            // TODO: instrukcja karmienia konia - raczej do poprawy
             {
-                "op": "fed",
-                "node": "Characters/Horse",
-                "from": "Characters/Main_hero/Items.Carrot"
+                "op": "set",
+                "attribute": "Characters/Horse.isFed",
+                "value": "true"
             }
         ]
     },
@@ -258,16 +292,7 @@
                     "Characters": [
                         {
                             "Name": "Main_hero",
-                            "Characters": [
-                                {
-                                    "Name": "Horse",
-                                    "Attributes": {
-                                        "isFed": true
-                                    },
-                                    "Characters": [],
-                                    "Items": []
-                                }
-                            ],
+                            "Characters": [],
                             "Items": []
                         },
                         {
@@ -349,15 +374,15 @@
             {
                 "op": "move",
                 "node": "Characters/Main_hero/Items/Casket",
-                "to": "Characters/Merchant_shady/Items/Casket"
+                "to": "Characters/Merchant_shady/Items"
             }
         ]
     },
 
     {
-        "Title": "Return to the merchant without the casket / Powrót do kupca bez szkatułki",
+        "Title": "Keeping cascket with gold / Zatrzymanie szkatułki ze złotem dla siebie",
         "Title_Generic": "",
-        "Description": "Bohater wraca do kupca bez szkatułki, zostaje wystawiony na niego list gończy",
+        "Description": "Bohater nie wraca do kupca z szkatułką, zostaje wystawiony na niego list gończy",
         "L_Side": {
             "Locations": [
                 {
@@ -366,12 +391,6 @@
                     "Characters": [
                         {
                             "Name": "Main_hero",
-                            "Attributes": {},
-                            "Characters": [],
-                            "Items": []
-                        },
-                        {
-                            "Name": "Merchant_shady",
                             "Attributes": {},
                             "Characters": [],
                             "Items": []

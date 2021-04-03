@@ -1,12 +1,8 @@
 [
-    //dodac produkcję generyczną wyciagnięcia obiektu z obiektu i wrzucenie jej do pliku quest11-generic.json
-    // dodać produkcję otwierania skrzyni wytrychem jako produkcja generyczna
-
-    // przykładowa produkcja generyczna
     {
-        "Title": "Throw an item at the hero / Rzut przedmiotem w bohatera",
-        "Title_Generic": "Upuszczenie przedmiotu",
-        "Description": "BohaterA rzuca kamieniem w BohateraB",
+        "Title": "Taking object from object / Wyciagniecie obiektu z obiektu",
+        "Title_Generic": "Wyciagniecie obiektu z obiektu",
+        "Description": "Bohater wyciąga obiektA z obiektuB",
         "L_Side": {
             "Locations": [
                 {
@@ -14,23 +10,27 @@
                     "Attributes": {},
                     "Characters": [
                         {
-                            "Name": "BohaterA",
+                            "Name": "Hero",
+                            "Attributes": {},
+                            "Items": [],
+                            "Comment": ""
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Name": "objectB",
                             "Attributes": {},
                             "Items": [
                                 {
-                                    "Name": "Stone"
+                                    "Name": "objectA",
+                                    "Attributes": {},
+                                    "Items": [],
+                                    "Comment": ""
                                 }
                             ],
-                            "Comment": "BohaterB jest rozproszony i nie wie co się dzieje, nie może zaatakować BohateraA"
-                        },
-                        {
-                            "Name": "BohaterB",
-                            "Attributes": {},
-                            "Items": []
+                            "Comment": ""
                         }
-                    ],
-                    "Items": [],
-                    "Connections": []
+                    ]
                 }
             ]
         },
@@ -38,13 +38,54 @@
         "Instructions": [
             {
                 "op": "move",
-                "node": "Stone",
-                "to": "Anywhere/Items"
-            },
+                "node": "Anywhere/Items/objectB/objectA",
+                "to": "Anywhere/Characters/Hero/Items"
+            }
+        ]
+    },
+    {
+        "Title": "Chest opening using picklock / Otwieranie skrzyni wytrychem",
+        "Title_Generic": "Otwieranie skrzyni wytrychem",
+        "Description": "Bohater otwiera skrzynie używając wytrychu",
+        "L_Side": {
+            "Locations": [
+                {
+                    "Name": "Anywhere",
+                    "Attributes": {},
+                    "Characters": [
+                        {
+                            "Name": "Hero",
+                            "Attributes": {},
+                            "Items": [
+                                {
+                                    "Name": "Picklock",
+                                    "Attributes": {},
+                                    "Items": [],
+                                    "Comment": ""
+                                }
+                            ],
+                            "Comment": ""
+                        }
+                    ],
+                    "Items": [
+                        {
+                            "Name": "Chest",
+                            "Attributes": {
+                                "isOpen": false
+                            },
+                            "Items": [],
+                            "Comment": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        "R_Side": {},
+        "Instructions": [
             {
                 "op": "set",
-                "attribute": "BohaterB.isDistracted",
-                "value": "true"
+                "attribute": "Items/Chest.isOpen",
+                "value": true
             }
         ]
     }
